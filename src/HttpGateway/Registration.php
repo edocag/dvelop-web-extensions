@@ -10,8 +10,6 @@
 
 namespace Edoc\Dvelop\Cloud\HttpGateway;
 
-
-use App;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
