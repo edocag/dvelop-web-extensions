@@ -47,28 +47,32 @@ class Registration
     }
     
     
+    /** Check successfull reaching and authentication to d.ecs http gateway
+     * @return bool
+     * @throws GuzzleException
+     */
     public function checkConnection()
     {
-        try {
-            $response = $this->httpClient->request(
-                "GET",
-                "/httpgateway/conf/apps",
-                [
-                    'http_errors' => false,
-                    'Accept'     => 'application/hal+json',
-                    'auth' => [$this->user, $this->password, "digest"]
-                ]
-            );
-           return $response->getStatusCode() == 200;
-        } catch (GuzzleException $exception) {
-            dd($exception);
-            return false;
-        }
+        $response = $this->httpClient->request(
+            "GET",
+            "/httpgateway/conf/apps",
+            [
+                'http_errors' => false,
+                'Accept'     => 'application/hal+json',
+                'auth' => [$this->user, $this->password, "digest"]
+            ]
+        );
+       return $response->getStatusCode() == 200;
     }
     
+    /**
+     * @param App $app
+     * @return mixed
+     * @throws GuzzleException
+     */
     public function addRegistration(App $app)
     {
-        try {
+
             $response = $this->httpClient->request(
                 "POST",
                 "/httpgateway/conf/apps",
@@ -79,29 +83,25 @@ class Registration
                     'json' => $app
                 ]
             );
-            dd($response);
             return $response->getHeader("Locaction")[0];
-        } catch (GuzzleException $exception) {
-            dd($exception);
-            return false;
-        }
     }
+    
+    /**
+     * @param String $appInstanceUri
+     * @return string[]
+     * @throws GuzzleException
+     */
     public function removeRegistration(String $appInstanceUri)
     {
-        try {
-            $response = $this->httpClient->request(
-                "DELETE",
-                $appInstanceUri,
-                [
-                    'http_errors' => false,
-                    'Accept'     => 'application/hal+json',
-                    'auth' => [$this->user, $this->password, "digest"],
-                ]
-            );
-            return $response->getHeader("Locaction");
-        } catch (GuzzleException $exception) {
-            dd($exception);
-            return false;
-        }
+        $response = $this->httpClient->request(
+            "DELETE",
+            $appInstanceUri,
+            [
+                'http_errors' => false,
+                'Accept'     => 'application/hal+json',
+                'auth' => [$this->user, $this->password, "digest"],
+            ]
+        );
+        return $response->getHeader("Locaction");
     }
 }
