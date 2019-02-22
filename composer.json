@@ -1,0 +1,15 @@
+{
+    "name": "edoc/dvelop-web-extensions",
+    "type": "library",
+    "description": "",
+    "authors": [
+        {
+            "name": "edoc solutions ag",
+            "email": "support@edoc.de"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
+y
