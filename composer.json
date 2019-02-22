@@ -1,6 +1,7 @@
 {
     "name": "edoc/dvelop-web-extensions",
     "type": "library",
+    "version": "1.0.0",
     "description": "",
     "authors": [
         {
