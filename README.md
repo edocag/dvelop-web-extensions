@@ -1,5 +1,5 @@
 # dvelop-web-extensions
-Helpful tools for working with the new d.velop utils like d.3one, d.ecs http gateway and d.velop cloud
+Helpful tools for working with the new d.velop utils like d.3one, d.ecs http gateway and d.velop cloud. This tool is still under development!
 ## Installation
 ### Via Download
 Download curent package and require the autoload.php.
