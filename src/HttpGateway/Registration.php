@@ -1,18 +1,9 @@
 <?php
-/**
- * Copyright (c) 2019. edoc solutions ag
- */
 
-/** contract app
- * edoc app server custom plugin file
- * created by tibens on 21.02.2019
- */
-
-namespace Edoc\Dvelop\Cloud\HttpGateway;
+namespace HttpGateway;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-
 
 
 class Registration
@@ -22,7 +13,7 @@ class Registration
     /** @var $user String  */
     private $user = "appsadmin";
     /** @var $password String  */
-    public $password;
+    private $password;
     /** @var $httpClient Client */
     private $httpClient;
     
@@ -34,7 +25,8 @@ class Registration
     public function __construct(String $baseUrl, String $password)
     {
         $this->baseUrl = $baseUrl;
-        $this->password = $password;
+        
+        $this->setPassword($password);
         
         $this->httpClient = new Client([
             // Base URI is used with relative requests
@@ -44,6 +36,14 @@ class Registration
             //Check SSL Certificate
             "verify" => false
         ]);
+    }
+    
+    /** Set new password (hash etc.)
+     * @param String $password
+     */
+    public function setPassword(String $password)
+    {
+        $this->password = hash('sha256',$this->user . ":HttpGateway:" . $password);
     }
     
     

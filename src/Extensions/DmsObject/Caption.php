@@ -1,6 +1,6 @@
 <?php
 
-namespace Edoc\Dvelop\Cloud\Extensions\DmsObject;
+namespace Extensions\DmsObject;
 
 
 class Caption

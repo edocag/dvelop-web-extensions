@@ -8,7 +8,7 @@
  * created by tibens on 21.02.2019
  */
 
-namespace Edoc\Dvelop\Cloud\Extensions\Feature;
+namespace Extensions\Feature;
 
 
 class Feature
