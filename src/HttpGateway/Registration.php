@@ -4,15 +4,19 @@ namespace HttpGateway;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Uri;
+use GuzzleHttp\TransferStats;
 
 
 class Registration
 {
     /** @var $baseUrl String */
     public $baseUrl;
-    /** @var $user String  */
+    /** @var $registrationUrl String */
+    public $registrationUrl;
+    /** @var $user String */
     private $user = "appsadmin";
-    /** @var $password String  */
+    /** @var $password String */
     private $password;
     /** @var $httpClient Client */
     private $httpClient;
@@ -30,9 +34,9 @@ class Registration
         
         $this->httpClient = new Client([
             // Base URI is used with relative requests
-            'base_uri' =>  $this->baseUrl,
+            'base_uri' => $this->baseUrl,
             // You can set any number of default request options.
-            'timeout'  => 3.0,
+            'timeout' => 3.0,
             //Check SSL Certificate
             "verify" => false
         ]);
@@ -43,7 +47,7 @@ class Registration
      */
     public function setPassword(String $password)
     {
-        $this->password = hash('sha256',$this->user . ":HttpGateway:" . $password);
+        $this->password = hash('sha256', $this->user . ":HttpGateway:" . $password);
     }
     
     
@@ -55,40 +59,72 @@ class Registration
     {
         $response = $this->httpClient->request(
             "GET",
-            "/httpgateway/conf/apps",
+            $this->registrationUrl,
             [
                 'http_errors' => false,
-                'Accept'     => 'application/hal+json',
+                'Accept' => 'application/hal+json',
                 'auth' => [$this->user, $this->password, "digest"]
             ]
         );
-       return $response->getStatusCode() == 200;
+        // echo $response->getBody()->getContents();
+        return $response->getStatusCode() == 200;
     }
     
-    /**
+    
+    public function getRealRegistrationUrl()
+    {
+        $lookupResponse = $this->httpClient->request(
+            "GET",
+            "/httpgateway",
+            [
+                'http_errors' => false,
+                'Accept' => 'application/hal+json',
+                'on_stats' => function (TransferStats $stats) use (&$url) {
+                    /** @var Uri $url */
+                    $url = $stats->getEffectiveUri();
+                }
+            ]
+        );
+        
+        $this->registrationUrl = $url->__toString() . "conf/apps";
+    }
+    
+    /** Add an new d.ecs http gateway app registration. One app name can have multiple instances
      * @param App $app
-     * @return mixed
+     * @return String d.ecs http gateway instance url
      * @throws GuzzleException
      */
     public function addRegistration(App $app)
     {
-
-            $response = $this->httpClient->request(
-                "POST",
-                "/httpgateway/conf/apps",
-                [
-                    'http_errors' => false,
-                    'Accept'     => 'application/hal+json',
-                    'auth' => [$this->user, $this->password, "digest"],
-                    'json' => $app
-                ]
-            );
-            return $response->getHeader("Locaction")[0];
+        // echo "add registration to  $this->registrationUrl<br>";
+        $response = $this->httpClient->request(
+            "POST",
+            $this->registrationUrl,
+            [
+                'http_errors' => false,
+                'Accept' => 'application/hal+json',
+                'auth' => [$this->user, $this->password, "digest"],
+                'json' => $app,
+            ]
+        );
+        
+        if ($response->getStatusCode() == 201 && $response->hasHeader("Location")) {
+            //print_r($response->getHeaders());
+            $location = $response->getHeader("Location");
+            //print_r($location);
+            if (count($location) == 1) {
+                return $response->getHeader("Location")[0];
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
     
     /**
      * @param String $appInstanceUri
-     * @return string[]
+     * @return true
      * @throws GuzzleException
      */
     public function removeRegistration(String $appInstanceUri)
@@ -98,10 +134,15 @@ class Registration
             $appInstanceUri,
             [
                 'http_errors' => false,
-                'Accept'     => 'application/hal+json',
+                'Accept' => 'application/hal+json',
                 'auth' => [$this->user, $this->password, "digest"],
             ]
         );
-        return $response->getHeader("Locaction");
+        
+        if ($response->getStatusCode() == 200) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

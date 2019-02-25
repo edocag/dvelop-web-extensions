@@ -2,8 +2,8 @@
 
 function dvelopWebExtensionsAutoload($className)
 {
-    $file = 'src/'.str_replace('\\','/',$className).'.php';
-    
+    echo $className;
+    $file = __DIR__.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.str_replace('\\',DIRECTORY_SEPARATOR,$className).'.php';
     echo $file;
     if(file_exists($file))
     {

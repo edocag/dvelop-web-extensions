@@ -7,3 +7,5 @@ Download curent package and require the autoload.php.
 ```require_once "dvelop-web-extensions/autoload.php;"``` 
 ### Via Composer (Coming soon)
 ```composer require edoc/dvelop-web-extensions``` 
+## Usage
+You can find usage examples in the examples directory.
