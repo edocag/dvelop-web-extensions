@@ -11,11 +11,13 @@
     ],
     "require": {
         "php": ">=7.0",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "netresearch/jsonmapper": "^1.4",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
-            "Edoc\\Dvelop\\Cloud\\": "src/"
+            "": "src/"
         }
     }
 }
