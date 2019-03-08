@@ -17,8 +17,15 @@ try {
     if ($httpGw->checkConnection()) {
         if ($location = $httpGw->addRegistration($app)) {
             print "successful registration";
+    
+            if ($httpGw->removeRegistrationFromApp($app)) {
+                print "succesfully deleted registration $location";
+            } else {
+                print "registration deletion failed";
+            }
             
-            if ($httpGw->removeRegistration($location)) {
+            
+            if ($httpGw->removeRegistrationFromUrl($location)) {
                 print "succesfully deleted registration $location";
             } else {
                 print "registration deletion failed";

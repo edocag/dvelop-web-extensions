@@ -1,8 +1,7 @@
 {
     "name": "edoc/dvelop-web-extensions",
     "type": "library",
-    "version": "1.0.0",
-    "description": "",
+    "description": "Helpful tools for working with the new d.velop utils like d.3one, d.ecs http gateway and d.velop cloud. This tool is still under development!",
     "authors": [
         {
             "name": "edoc solutions ag",
@@ -15,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Edoc\\Dvelop\\Cloud\\": "src/"
+            "": "src/"
         }
     }
 }

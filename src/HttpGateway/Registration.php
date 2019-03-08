@@ -25,6 +25,7 @@ class Registration
      * HttpGatewayRegistration constructor.
      * @param String $baseUrl
      * @param String $password
+     * @throws GuzzleException
      */
     public function __construct(String $baseUrl, String $password)
     {
@@ -40,6 +41,9 @@ class Registration
             //Check SSL Certificate
             "verify" => false
         ]);
+        
+        $this->checkConnection();
+        $this->getRealRegistrationUrl();
     }
     
     /** Set new password (hash etc.)
@@ -71,6 +75,9 @@ class Registration
     }
     
     
+    /**
+     * @throws GuzzleException
+     */
     public function getRealRegistrationUrl()
     {
         $lookupResponse = $this->httpClient->request(
@@ -122,12 +129,36 @@ class Registration
         }
     }
     
-    /**
-     * @param String $appInstanceUri
-     * @return true
+    /** Delete app registration via App instance
+     * @param App $app
+     * @return bool Successful deletion
      * @throws GuzzleException
      */
-    public function removeRegistration(String $appInstanceUri)
+    public function removeRegistrationFromApp(App $app)
+    {
+        $instanceUrl = $this->registrationUrl . "/" . $app->app . "/instances/" . $app->instanceId;
+        $response = $this->httpClient->request(
+            "DELETE",
+            $instanceUrl,
+            [
+                'http_errors' => false,
+                'Accept' => 'application/hal+json',
+                'auth' => [$this->user, $this->password, "digest"],
+            ]
+        );
+        if ($response->getStatusCode() == 200) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /** Delete app registration via URL of app instance
+     * @param String $appInstanceUri
+     * @return bool Successful deletion
+     * @throws GuzzleException
+     */
+    public function removeRegistrationFromUrl(String $appInstanceUri)
     {
         $response = $this->httpClient->request(
             "DELETE",
