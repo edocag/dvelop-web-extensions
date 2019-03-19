@@ -25,25 +25,21 @@ class Registration
      * HttpGatewayRegistration constructor.
      * @param String $baseUrl
      * @param String $password
-     * @throws GuzzleException
+     * @param array $guzzleOptions
      */
-    public function __construct(String $baseUrl, String $password)
+    public function __construct(String $baseUrl, String $password, $guzzleOptions = [// You can set any number of default request options.
+        'timeout' => 3.0,
+        //Check SSL Certificate
+        "verify" => false])
     {
         $this->baseUrl = $baseUrl;
         
         $this->setPassword($password);
+    
+        // Base URI is used with relative requests
+        $guzzleOptions["base_uri"] = $this->baseUrl;
         
-        $this->httpClient = new Client([
-            // Base URI is used with relative requests
-            'base_uri' => $this->baseUrl,
-            // You can set any number of default request options.
-            'timeout' => 3.0,
-            //Check SSL Certificate
-            "verify" => false
-        ]);
-        
-        $this->checkConnection();
-        $this->getRealRegistrationUrl();
+        $this->httpClient = new Client($guzzleOptions);
     }
     
     /** Set new password (hash etc.)

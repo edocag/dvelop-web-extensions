@@ -10,7 +10,9 @@
     ],
     "require": {
         "php": ">=7.0",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "netresearch/jsonmapper": "^1.4",
+        "ext-json": "*"
     },
     "license": "GPL-3.0-or-later",
     "autoload": {

@@ -5,11 +5,10 @@ use HttpGateway\App;
 use HttpGateway\Registration;
 
 require_once "../vendor/autoload.php";
-require_once "../autoload.php";
 
-$app = new App("edoc-testapp", "https://s454.edoc.local/edoc-testapp");
+$app = new App("{appname}", "{destination}");
 
-$httpGw = new Registration("https://d3server.edoc.local", "e8b9376c70c9f877f2b0f3c205a01bb1c696defc9125b13d63633844ad8a9a81");
+$httpGw = new Registration("{baseurl}", "{password}");
 
 try {
     $httpGw->getRealRegistrationUrl();
