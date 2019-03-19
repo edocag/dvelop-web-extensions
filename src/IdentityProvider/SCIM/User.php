@@ -13,15 +13,15 @@ namespace IdentityProvider\SCIM;
  */
 class User
 {
-    /** @var $id String */
+    /** @var string */
     public $id;
     /**
-     * @var $userName String
+     * @var String
      */
     public $userName;
     
     /**
-     * @return String
+     * @return string
      */
     public function getId(): String
     {
@@ -29,7 +29,7 @@ class User
     }
     
     /**
-     * @param String $id
+     * @param string $id
      */
     public function setId(String $id)
     {
@@ -37,7 +37,7 @@ class User
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getUserName(): String
     {
@@ -45,7 +45,7 @@ class User
     }
     
     /**
-     * @param String $userName
+     * @param string $userName
      */
     public function setUserName(String $userName)
     {
@@ -69,7 +69,7 @@ class User
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getDisplayName(): String
     {
@@ -77,7 +77,7 @@ class User
     }
     
     /**
-     * @param String $displayName
+     * @param string $displayName
      */
     public function setDisplayName(String $displayName)
     {
@@ -85,7 +85,7 @@ class User
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getProfileUrl(): String
     {
@@ -93,7 +93,7 @@ class User
     }
     
     /**
-     * @param String $profileUrl
+     * @param string $profileUrl
      */
     public function setProfileUrl(String $profileUrl)
     {
@@ -101,7 +101,7 @@ class User
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getTitle(): String
     {
@@ -109,7 +109,7 @@ class User
     }
     
     /**
-     * @param String $title
+     * @param string $title
      */
     public function setTitle(String $title)
     {
@@ -117,7 +117,7 @@ class User
     }
     
     /**
-     * @return String[]
+     * @return string[]
      */
     public function getEmails(): array
     {
@@ -125,7 +125,7 @@ class User
     }
     
     /**
-     * @param String[] $emails
+     * @param string[] $emails
      */
     public function setEmails(array $emails)
     {
@@ -133,7 +133,7 @@ class User
     }
     
     /**
-     * @return String[]
+     * @return string[]
      */
     public function getPhotos(): array
     {
@@ -141,7 +141,7 @@ class User
     }
     
     /**
-     * @param String[] $photos
+     * @param string[] $photos
      */
     public function setPhotos(array $photos)
     {
@@ -168,27 +168,27 @@ class User
      */
     public $name;
     /**
-     * @var $displayName String
+     * @var string
      */
     public $displayName;
     /**
-     * @var $profileUrl String
+     * @var string
      */
     public $profileUrl; // TODO: Make URI?
     /**
-     * @var $title String
+     * @var string
      */
     public $title;
     /**
-     * @var $emails String[]
+     * @var string[]
      */
     public $emails;
     /**
-     * @var $photos String[]
+     * @var string[]
      */
     public $photos;
     /**
-     * @var $groups Group[]
+     * @var Group[]
      */
     public $groups;
 }

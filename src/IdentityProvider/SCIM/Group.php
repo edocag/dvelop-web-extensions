@@ -14,12 +14,12 @@ namespace IdentityProvider\SCIM;
 class Group
 {
     /**
-     * @var $value String
+     * @var string $value
      */
     public $value;
     
     /**
-     * @return String
+     * @return string
      */
     public function getValue(): String
     {
@@ -27,7 +27,7 @@ class Group
     }
     
     /**
-     * @param String $value
+     * @param string $value
      */
     public function setValue(String $value)
     {
@@ -35,7 +35,7 @@ class Group
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getDisplay(): String
     {
@@ -43,21 +43,21 @@ class Group
     }
     
     /**
-     * @param String $display
+     * @param string $display
      */
     public function setDisplay(String $display)
     {
         $this->display = $display;
     }
     /**
-     * @var $display String
+     * @var string
      */
     public $display;
     
     /**
      * Group constructor.
-     * @param String $value
-     * @param String $display
+     * @param string $value
+     * @param string $display
      */
     public function __construct(String $value, String $display)
     {

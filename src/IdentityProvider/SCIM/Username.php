@@ -14,22 +14,22 @@ namespace IdentityProvider\SCIM;
 class Username
 {
     /**
-     * @var $formatted String
+     * @var string $formatted
      */
     public $formatted;
     /**
-     * @var $familyName String
+     * @var string $familyName
      */
     public $familyName;
     
     /**
      * Username constructor.
-     * @param String $formatted
-     * @param String $familyName
-     * @param String $givenName
-     * @param String $middleName
-     * @param String $honoricPrefix
-     * @param String $honoricSuffix
+     * @param string $formatted
+     * @param string $familyName
+     * @param string $givenName
+     * @param string $middleName
+     * @param string $honoricPrefix
+     * @param string $honoricSuffix
      */
     public function __construct(
         String $formatted,
@@ -48,7 +48,7 @@ class Username
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getFormatted(): String
     {
@@ -56,7 +56,7 @@ class Username
     }
     
     /**
-     * @param String $formatted
+     * @param string $formatted
      */
     public function setFormatted(String $formatted)
     {
@@ -64,7 +64,7 @@ class Username
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getFamilyName(): String
     {
@@ -72,7 +72,7 @@ class Username
     }
     
     /**
-     * @param String $familyName
+     * @param string $familyName
      */
     public function setFamilyName(String $familyName)
     {
@@ -80,7 +80,7 @@ class Username
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getGivenName(): String
     {
@@ -88,7 +88,7 @@ class Username
     }
     
     /**
-     * @param String $givenName
+     * @param string $givenName
      */
     public function setGivenName(String $givenName)
     {
@@ -96,7 +96,7 @@ class Username
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getMiddleName(): String
     {
@@ -104,7 +104,7 @@ class Username
     }
     
     /**
-     * @param String $middleName
+     * @param string $middleName
      */
     public function setMiddleName(String $middleName)
     {
@@ -112,7 +112,7 @@ class Username
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getHonoricPrefix(): String
     {
@@ -120,7 +120,7 @@ class Username
     }
     
     /**
-     * @param String $honoricPrefix
+     * @param string $honoricPrefix
      */
     public function setHonoricPrefix(String $honoricPrefix)
     {
@@ -128,7 +128,7 @@ class Username
     }
     
     /**
-     * @return String
+     * @return string
      */
     public function getHonoricSuffix(): String
     {
@@ -136,26 +136,26 @@ class Username
     }
     
     /**
-     * @param String $honoricSuffix
+     * @param string $honoricSuffix
      */
     public function setHonoricSuffix(String $honoricSuffix)
     {
         $this->honoricSuffix = $honoricSuffix;
     }
     /**
-     * @var $givenName String
+     * @var string $givenName
      */
     public $givenName;
     /**
-     * @var $middleName String
-     */
+     * @var string
+*/
     public $middleName;
     /**
-     * @var $honoricPrefix String
+     * @var string
      */
     public $honoricPrefix;
     /**
-     * @var $honoricSuffix String
+     * @var string
      */
     public $honoricSuffix;
 }

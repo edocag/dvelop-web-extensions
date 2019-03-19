@@ -6,73 +6,81 @@
 
 namespace IdentityProvider;
 
-
-use ArrayObject;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\UriTemplate;
-use IdentityProvider\SCIM\User;
-use IdentityProvider\SCIM\Group;
 
 class IDPClient
 {
     /** @var $client Client */
     private $client;
     /** @var $baseUrl String */
-    private $baseUrl;
+    public $baseUrl;
     /** @var $authSessionId String */
-    private $authSessionId;
+    public $authSessionId;
     
     /**
      * IDPClient constructor.
      * @param String $baseUrl
      * @param String $authSessionId
+     * @param array $guzzleOptions
      */
-    public function __construct(String $baseUrl, String $authSessionId)
+    public function __construct(String $baseUrl, String $authSessionId = "", array $guzzleOptions = ["verify => false"])
     {
         $this->baseUrl = $baseUrl;
         $this->authSessionId = $authSessionId;
-        $this->client = new Client(
-            [
-                "verify" => false
-            ]
-        );
+        $this->client = new Client($guzzleOptions);
     }
     
+    /** Get a login url for idp
+     * @param String $redirect Path to redirect to after login
+     * @return String URL
+     */
+    public function loginUrl(String $redirect)
+    {
+        $uri = new Uri($this->baseUrl);
+        $uri = $uri->withPath("identityprovider");
+        $uri = $uri->withPath($uri->getPath() . "/login");
+        $uri = $uri->withQuery("redirect=".urlencode($redirect));
+        
+        return $uri->__toString();
+    }
+    
+    /** Validate a token, return SCIM Object or false
+     * @param bool $allowExternalValidation
+     * @return array|bool
+     * @throws \Exception
+     */
     public function validate(bool $allowExternalValidation)
     {
         $uri = new Uri($this->baseUrl);
-       // echo $uri->__toString();
         $uri = $uri->withPath("identityprovider");
-      //  echo $uri->__toString();
         $uri = $uri->withPath($uri->getPath() . "/validate");
-        //echo $uri->__toString();
         $uri = $uri->withQuery("allowExternalValidation=".(($allowExternalValidation) ? "true" : "false"));
-        //echo $uri->__toString();
-       
-        $response = $this->client->request(
-            "GET",
-            $uri,
-            [
-                "headers" => [
-                    "Authorization" => "Bearer " . urldecode($this->authSessionId),
-                    "Accept" => "application/json"
+    
+        try {
+            $response = $this->client->request(
+                "GET",
+                $uri,
+                [
+                    "headers" => [
+                        "Authorization" => "Bearer " . urldecode($this->authSessionId),
+                        "Accept" => "application/json"
+                    ]
                 ]
-            ]
-        );
-        
-        if ($response->getStatusCode() == 401) {
-            return null;
+            );
+    
+            if ($response->getStatusCode() == 401) {
+                return false;
+            }
+    
+            $jsonArray = json_decode($response->getBody()->getContents(),true);
+            
+            return $jsonArray;
+            
+        } catch (GuzzleException $e) {
+            throw new \Exception($e->getMessage());
         }
-        //print_r($response->getBody()->getContents());
-        
-        $jsonArray = json_decode($response->getBody()->getContents(),false);
-       // print_r($jsonArray);
-        $mapper = new \JsonMapper();
-        $array = [];
-        $mapperArray = $mapper->map($jsonArray,new User());
-        print_r($mapperArray);
-        return ;
     }
     
     
