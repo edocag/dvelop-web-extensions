@@ -23,9 +23,9 @@ class DmsObjectExtensions
     /**
      * DmsObjectExtensions constructor.
      * @param DmsObjectExtension[] $extensions
-     * @param String $self
+     * @param Link $self
      */
-    public function __construct(array $extensions, String $self)
+    public function __construct(array $extensions, Link $self)
     {
         $this->extensions = $extensions;
         $this->self = $self;
