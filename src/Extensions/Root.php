@@ -13,11 +13,11 @@ namespace Extensions;
 
 class Root
 {
-    /** @var $title String */
+    /** @var string $title */
     public $title;
-    /** @var $version String */
+    /** @var string $version */
     public $version;
-    /** @var $_links array */
+    /** @var array $_links */
     public $_links;
     
     /**
