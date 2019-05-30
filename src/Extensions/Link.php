@@ -13,11 +13,11 @@ namespace Extensions;
 
 class Link
 {
-/** @var $href String */
-public $href;
-/** @var $templated boolean */
-public $templated;
-    
+    /** @var $href String */
+    public $href;
+    /** @var $templated boolean */
+    public $templated;
+
 
     /**
      * Link constructor.

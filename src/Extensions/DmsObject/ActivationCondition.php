@@ -11,7 +11,7 @@ class ActivationCondition
     public $operator;
     /** @var $values String[] */
     public $values;
-    
+
     /**
      * ActivationCondition constructor.
      * @param String $propertyId

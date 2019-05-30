@@ -14,7 +14,7 @@ class SourceProperty
      * @var string $key
      */
     public $key;
-    
+
     /**
      * Indicates the display name as displayed in the Source field in the Source area on the Mappings administration user interface.
      * For internationalization purposes, DMSApp works with the HTTP header Accept-Language.
@@ -23,7 +23,7 @@ class SourceProperty
      * @var string $displayName
      */
     public $displayName;
-    
+
     /**
      * SourceProperty constructor.
      * @param string $key

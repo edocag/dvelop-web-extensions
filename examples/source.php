@@ -4,6 +4,7 @@ require_once "../vendor/autoload.php";
 use Extensions\Source\Source;
 use Extensions\Source\SourceCategory;
 use Extensions\Source\SourceProperty;
+use Extensions\Source\Sources;
 
 // Define Properties
 $sourceProperties = [];
@@ -23,7 +24,7 @@ $sourceCategories[] = $contractCategory;
 $source = new Source("eca", "edoc contract app", $sourceCategories, $sourceProperties);
 
 //Add source to source pool for this app
-$sources = new \Extensions\Source\Sources();
+$sources = new Sources();
 $sources->add($source);
 
 //Ouput json

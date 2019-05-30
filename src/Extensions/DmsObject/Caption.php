@@ -9,7 +9,7 @@ class Caption
     public $culture;
     /** @var $caption String */
     public $caption;
-    
+
     /**
      * Caption constructor.
      * @param String $culture

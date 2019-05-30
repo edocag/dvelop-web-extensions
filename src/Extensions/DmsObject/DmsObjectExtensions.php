@@ -19,7 +19,7 @@ class DmsObjectExtensions
     public $extensions;
     /** @var $self Link */
     public $self;
-    
+
     /**
      * DmsObjectExtensions constructor.
      * @param DmsObjectExtension[] $extensions
@@ -30,5 +30,5 @@ class DmsObjectExtensions
         $this->extensions = $extensions;
         $this->self = $self;
     }
-    
+
 }

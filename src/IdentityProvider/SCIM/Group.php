@@ -17,51 +17,51 @@ class Group
      * @var string $value
      */
     public $value;
-    
-    /**
-     * @return string
-     */
-    public function getValue(): String
-    {
-        return $this->value;
-    }
-    
-    /**
-     * @param string $value
-     */
-    public function setValue(String $value)
-    {
-        $this->value = $value;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getDisplay(): String
-    {
-        return $this->display;
-    }
-    
-    /**
-     * @param string $display
-     */
-    public function setDisplay(String $display)
-    {
-        $this->display = $display;
-    }
     /**
      * @var string
      */
     public $display;
-    
+
     /**
      * Group constructor.
      * @param string $value
      * @param string $display
      */
-    public function __construct(String $value, String $display)
+    public function __construct(string $value, string $display)
     {
         $this->value = $value;
+        $this->display = $display;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setValue(string $value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplay(): string
+    {
+        return $this->display;
+    }
+
+    /**
+     * @param string $display
+     */
+    public function setDisplay(string $display)
+    {
         $this->display = $display;
     }
 }

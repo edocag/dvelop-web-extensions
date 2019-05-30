@@ -14,7 +14,7 @@ class Sources
      * @var array $sources
      */
     public $sources;
-    
+
     /**
      * Sources constructor.
      * @param $sources
@@ -23,7 +23,7 @@ class Sources
     {
         $this->sources = $sources;
     }
-    
+
     /** Add single source
      * @param $source Source
      */

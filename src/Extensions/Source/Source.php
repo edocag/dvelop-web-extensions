@@ -16,7 +16,7 @@ class Source
      * @var string $id
      */
     public $id;
-    
+
     /**
      * Indicates the display name as displayed in the Source field in the Mappings administrator interface.
      * For internationalization purposes, DMSApp works with the HTTP header Accept-Language.
@@ -25,19 +25,19 @@ class Source
      * @var string $displayName
      */
     public $displayName;
-    
+
     /**
-     * 	Indicates the array of the categories for the source that are provided for managing and processing mapping.
+     *    Indicates the array of the categories for the source that are provided for managing and processing mapping.
      * @var array $categories
      */
     public $categories;
-    
+
     /**
-     * 	Indicates the array of the properties for the source that are provided for managing and processing mapping.
+     *    Indicates the array of the properties for the source that are provided for managing and processing mapping.
      * @var array $properties
      */
     public $properties;
-    
+
     /**
      * Source constructor.
      * @param string $id
@@ -52,5 +52,5 @@ class Source
         $this->categories = $categories;
         $this->properties = $properties;
     }
-    
+
 }

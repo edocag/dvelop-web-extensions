@@ -1,20 +1,23 @@
 <?php
+
 use IdentityProvider\IDPClient;
+use IdentityProvider\SCIM\User;
 
 require_once "../vendor/autoload.php";
 
 $idp = new IDPClient(
-    "{basis-url}",
+    "{baseUrl}",
     "{token}");
 
 //header("Location: ".$idp->loginUrl("/edoc-contract-app/"));
 
 try {
-    $data = $idp->validate(false);
-    
-    if ($data !== false) {
-        //Login success
-        var_dump($data);
+    /** @var User $user */
+    $user = $idp->validate(false);
+
+    if ($user !== false) {
+        echo $user->getId();
+        echo $user->getDisplayName();
     } else {
         //Login failed
         echo "Login failed";

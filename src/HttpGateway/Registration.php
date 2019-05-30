@@ -20,7 +20,7 @@ class Registration
     private $password;
     /** @var $httpClient Client */
     private $httpClient;
-    
+
     /**
      * HttpGatewayRegistration constructor.
      * @param String $baseUrl
@@ -33,15 +33,15 @@ class Registration
         "verify" => false])
     {
         $this->baseUrl = $baseUrl;
-        
+
         $this->setPassword($password);
-    
+
         // Base URI is used with relative requests
         $guzzleOptions["base_uri"] = $this->baseUrl;
-        
+
         $this->httpClient = new Client($guzzleOptions);
     }
-    
+
     /** Set new password (hash etc.)
      * @param String $password
      */
@@ -49,8 +49,8 @@ class Registration
     {
         $this->password = hash('sha256', $this->user . ":HttpGateway:" . $password);
     }
-    
-    
+
+
     /** Check successfull reaching and authentication to d.ecs http gateway
      * @return bool
      * @throws GuzzleException
@@ -69,14 +69,14 @@ class Registration
         // echo $response->getBody()->getContents();
         return $response->getStatusCode() == 200;
     }
-    
-    
+
+
     /**
      * @throws GuzzleException
      */
     public function getRealRegistrationUrl()
     {
-        $lookupResponse = $this->httpClient->request(
+        $this->httpClient->request(
             "GET",
             "/httpgateway",
             [
@@ -88,10 +88,10 @@ class Registration
                 }
             ]
         );
-        
+
         $this->registrationUrl = $url->__toString() . "conf/apps";
     }
-    
+
     /** Add an new d.ecs http gateway app registration. One app name can have multiple instances
      * @param App $app
      * @return String d.ecs http gateway instance url
@@ -110,7 +110,7 @@ class Registration
                 'json' => $app,
             ]
         );
-        
+
         if ($response->getStatusCode() == 201 && $response->hasHeader("Location")) {
             //print_r($response->getHeaders());
             $location = $response->getHeader("Location");
@@ -124,7 +124,7 @@ class Registration
             return false;
         }
     }
-    
+
     /** Delete app registration via App instance
      * @param App $app
      * @return bool Successful deletion
@@ -148,7 +148,7 @@ class Registration
             return false;
         }
     }
-    
+
     /** Delete app registration via URL of app instance
      * @param String $appInstanceUri
      * @return bool Successful deletion
@@ -165,7 +165,7 @@ class Registration
                 'auth' => [$this->user, $this->password, "digest"],
             ]
         );
-        
+
         if ($response->getStatusCode() == 200) {
             return true;
         } else {

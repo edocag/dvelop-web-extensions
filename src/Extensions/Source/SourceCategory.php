@@ -14,7 +14,7 @@ class SourceCategory
      * @var string $key
      */
     public $key;
-    
+
     /**
      * Indicates the display name as displayed in the Source field in the Categories area on the Mappings administration user interface.
      * For internationalization purposes, DMSApp works with the HTTP header Accept-Language.
@@ -23,7 +23,7 @@ class SourceCategory
      * @var string $displayName
      */
     public $displayName;
-    
+
     /**
      * SourceCategory constructor.
      * @param string $key

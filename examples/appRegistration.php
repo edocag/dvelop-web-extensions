@@ -12,18 +12,18 @@ $httpGw = new Registration("{baseurl}", "{password}");
 
 try {
     $httpGw->getRealRegistrationUrl();
-    
+
     if ($httpGw->checkConnection()) {
         if ($location = $httpGw->addRegistration($app)) {
             print "successful registration";
-    
+
             if ($httpGw->removeRegistrationFromApp($app)) {
                 print "succesfully deleted registration $location";
             } else {
                 print "registration deletion failed";
             }
-            
-            
+
+
             if ($httpGw->removeRegistrationFromUrl($location)) {
                 print "succesfully deleted registration $location";
             } else {
@@ -35,6 +35,6 @@ try {
     } else {
         print "no connection";
     }
-} catch(GuzzleException $exception) {
+} catch (GuzzleException $exception) {
     print $exception->getMessage();
 }

@@ -19,7 +19,7 @@ class Root
     public $version;
     /** @var array $_links */
     public $_links;
-    
+
     /**
      * Root constructor.
      * @param String $title

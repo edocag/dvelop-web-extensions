@@ -11,7 +11,7 @@ class App
     public $destinationUri;
     /** @var $instanceId String maximum 40 characters */
     public $instanceId;
-    
+
     /**
      * HttpGatewayApp constructor.
      * @param $app
@@ -22,11 +22,11 @@ class App
     {
         $this->app = $app;
         $this->destinationUri = $destinationUri;
-        
+
         if (empty($instanceId)) {
             $instanceId = uniqid("auto_");
         }
-        
+
         $this->instanceId = $instanceId;
     }
 }
