@@ -15,156 +15,10 @@ class User
 {
     /** @var string */
     public $id;
-    /**
-     * @var String
-     */
+    /** @var string */
     public $userName;
-    
     /**
-     * @return string
-     */
-    public function getId(): String
-    {
-        return $this->id;
-    }
-    
-    /**
-     * @param string $id
-     */
-    public function setId(String $id)
-    {
-        $this->id = $id;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getUserName(): String
-    {
-        return $this->userName;
-    }
-    
-    /**
-     * @param string $userName
-     */
-    public function setUserName(String $userName)
-    {
-        $this->userName = $userName;
-    }
-    
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-    
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getDisplayName(): String
-    {
-        return $this->displayName;
-    }
-    
-    /**
-     * @param string $displayName
-     */
-    public function setDisplayName(String $displayName)
-    {
-        $this->displayName = $displayName;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getProfileUrl(): String
-    {
-        return $this->profileUrl;
-    }
-    
-    /**
-     * @param string $profileUrl
-     */
-    public function setProfileUrl(String $profileUrl)
-    {
-        $this->profileUrl = $profileUrl;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getTitle(): String
-    {
-        return $this->title;
-    }
-    
-    /**
-     * @param string $title
-     */
-    public function setTitle(String $title)
-    {
-        $this->title = $title;
-    }
-    
-    /**
-     * @return string[]
-     */
-    public function getEmails(): array
-    {
-        return $this->emails;
-    }
-    
-    /**
-     * @param string[] $emails
-     */
-    public function setEmails(array $emails)
-    {
-        $this->emails = $emails;
-    }
-    
-    /**
-     * @return string[]
-     */
-    public function getPhotos(): array
-    {
-        return $this->photos;
-    }
-    
-    /**
-     * @param string[] $photos
-     */
-    public function setPhotos(array $photos)
-    {
-        $this->photos = $photos;
-    }
-    
-    /**
-     * @return Group[]
-     */
-    public function getGroups(): array
-    {
-        return $this->groups;
-    }
-    
-    /**
-     * @param Group[] $groups
-     */
-    public function setGroups(array $groups)
-    {
-        $this->groups = $groups;
-    }
-    /**
-     * @var $name
+     * @var string
      */
     public $name;
     /**
@@ -180,15 +34,160 @@ class User
      */
     public $title;
     /**
-     * @var string[]
+     * @var array
      */
     public $emails;
     /**
-     * @var string[]
+     * @var array
      */
     public $photos;
     /**
      * @var Group[]
      */
     public $groups;
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserName(): string
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @param string $userName
+     */
+    public function setUserName(string $userName)
+    {
+        $this->userName = $userName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayName(): string
+    {
+        return $this->displayName;
+    }
+
+    /**
+     * @param string $displayName
+     */
+    public function setDisplayName(string $displayName)
+    {
+        $this->displayName = $displayName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfileUrl(): string
+    {
+        return $this->profileUrl;
+    }
+
+    /**
+     * @param string $profileUrl
+     */
+    public function setProfileUrl(string $profileUrl)
+    {
+        $this->profileUrl = $profileUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEmails(): array
+    {
+        return $this->emails;
+    }
+
+    /**
+     * @param array $emails
+     */
+    public function setEmails(array $emails)
+    {
+        $this->emails = $emails;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPhotos(): array
+    {
+        return $this->photos;
+    }
+
+    /**
+     * @param array $photos
+     */
+    public function setPhotos(array $photos)
+    {
+        $this->photos = $photos;
+    }
+
+    /**
+     * @return Group[]
+     */
+    public function getGroups(): array
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @param Group[] $groups
+     */
+    public function setGroups(array $groups)
+    {
+        $this->groups = $groups;
+    }
+
 }

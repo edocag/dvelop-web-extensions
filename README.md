@@ -10,6 +10,9 @@ Right now it provides class libraries for
  
 ## Installation
 ### Via Composer (Preferred)
+Get the latest release version via 
+```composer require edoc/dvelop-web-extensions``` 
+For the most current master commit require
 ```composer require edoc/dvelop-web-extensions "dev-master"``` 
 ### Via Download
 Download curent package and require the autoload.php.

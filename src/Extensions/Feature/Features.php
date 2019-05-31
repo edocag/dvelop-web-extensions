@@ -15,7 +15,7 @@ class Features
     public $features;
     /** @var Link $self */
     public $self;
-    
+
     /**
      * Features constructor.
      * @param Feature[] $features

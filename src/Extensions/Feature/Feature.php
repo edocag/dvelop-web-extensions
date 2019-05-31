@@ -27,7 +27,7 @@ class Feature
     public $color;
     /** @var $icon String */
     public $icon;
-    
+
     /**
      * Feature constructor.
      * @param String $title
@@ -46,7 +46,8 @@ class Feature
         String $url,
         String $color,
         String $icon
-    ) {
+    )
+    {
         $this->title = $title;
         $this->subtitle = $subtitle;
         $this->description = $description;

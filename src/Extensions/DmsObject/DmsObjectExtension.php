@@ -24,7 +24,7 @@ class DmsObjectExtension
     public $uriTemplate;
     /** @var $iconUri String */
     public $iconUri;
-    
+
     /**
      * DmsObjectExtension constructor.
      * @param String $id
@@ -41,7 +41,8 @@ class DmsObjectExtension
         String $context,
         String $uriTemplate,
         String $iconUri
-    ) {
+    )
+    {
         $this->id = $id;
         $this->activationConditions = $activationConditions;
         $this->captions = $captions;
@@ -49,5 +50,5 @@ class DmsObjectExtension
         $this->uriTemplate = $uriTemplate;
         $this->iconUri = $iconUri;
     }
-    
+
 }
