@@ -1,12 +1,4 @@
 <?php
-/**
- * Copyright (c) 2019. edoc solutions ag
- */
-
-/** contract app
- * edoc app server custom plugin file
- * created by tibens on 21.02.2019
- */
 
 namespace Extensions\DmsObject;
 
@@ -18,7 +10,7 @@ class DmsObjectExtensions
     /** @var $extensions DmsObjectExtension[] */
     public $extensions;
     /** @var $self Link */
-    public $self;
+    public $_links;
 
     /**
      * DmsObjectExtensions constructor.
@@ -28,7 +20,9 @@ class DmsObjectExtensions
     public function __construct(array $extensions, Link $self)
     {
         $this->extensions = $extensions;
-        $this->self = $self;
+        $this->_links = [
+            "self" => $self
+        ];
     }
 
 }
