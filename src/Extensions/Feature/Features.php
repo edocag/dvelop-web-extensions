@@ -20,6 +20,8 @@ class Features
     public function __construct(array $features, Link $self)
     {
         $this->features = $features;
-        $this->_links = [ "self" => $self ];
+        $this->_links = [
+            "self" => $self
+        ];
     }
 }
