@@ -8,7 +8,7 @@ require_once "../vendor/autoload.php";
 
 $app = new App("{appname}", "{destination}");
 
-$httpGw = new Registration("{baseurl}", "{password}");
+$httpGw = new \HttpGateway\GatewayClient("{baseurl}", "{password}");
 
 try {
     $httpGw->getRealRegistrationUrl();

@@ -18,7 +18,7 @@ class User
     /** @var string */
     public $userName;
     /**
-     * @var string
+     * @var Username
      */
     public $name;
     /**
@@ -79,7 +79,7 @@ class User
     }
 
     /**
-     * @return string
+     * @return Username
      */
     public function getName()
     {
@@ -87,7 +87,7 @@ class User
     }
 
     /**
-     * @param string $name
+     * @param Username $name
      */
     public function setName($name)
     {

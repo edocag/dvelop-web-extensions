@@ -17,8 +17,8 @@ class DmsObjectExtensions
 {
     /** @var $extensions DmsObjectExtension[] */
     public $extensions;
-    /** @var $self Link */
-    public $self;
+    /** @var array $_links */
+    public $_links;
 
     /**
      * DmsObjectExtensions constructor.
@@ -28,7 +28,7 @@ class DmsObjectExtensions
     public function __construct(array $extensions, Link $self)
     {
         $this->extensions = $extensions;
-        $this->self = $self;
+        $this->_links = [ "self" => $self ];
     }
 
 }

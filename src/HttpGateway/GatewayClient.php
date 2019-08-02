@@ -2,13 +2,14 @@
 
 namespace HttpGateway;
 
+use Exceptions\GatewayException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\TransferStats;
 
 
-class Registration
+class GatewayClient
 {
     /** @var $baseUrl String */
     public $baseUrl;
@@ -20,6 +21,9 @@ class Registration
     private $password;
     /** @var $httpClient Client */
     private $httpClient;
+    
+    /** @var bool  */
+    private $realRegistrationUrlGiven;
 
     /**
      * HttpGatewayRegistration constructor.
@@ -27,18 +31,31 @@ class Registration
      * @param String $password
      * @param array $guzzleOptions
      */
-    public function __construct(String $baseUrl, String $password, $guzzleOptions = [// You can set any number of default request options.
-        'timeout' => 3.0,
-        //Check SSL Certificate
-        "verify" => false])
+    public function __construct(
+        String $baseUrl,
+        String $password,
+        array $guzzleOptions = [
+            // You can set any number of default request options.
+            'timeout' => 3.0,
+            //Check SSL Certificate
+            "verify" => false
+        ]
+    )
     {
+        
         $this->baseUrl = $baseUrl;
 
         $this->setPassword($password);
 
         // Base URI is used with relative requests
-        $guzzleOptions["base_uri"] = $this->baseUrl;
-
+        str_replace("https://", "", $this->baseUrl);
+        
+        if (strpos($baseUrl, "https://") !== false) {
+            $guzzleOptions["base_uri"] = $this->baseUrl;
+        } else {
+            $guzzleOptions["base_uri"] = "https://" . $this->baseUrl;
+        }
+        
         $this->httpClient = new Client($guzzleOptions);
     }
 
@@ -69,59 +86,78 @@ class Registration
         // echo $response->getBody()->getContents();
         return $response->getStatusCode() == 200;
     }
-
-
+    
+    
     /**
-     * @throws GuzzleException
+     * Get real registration url on port 4200
+     * @throws GatewayException
      */
     public function getRealRegistrationUrl()
     {
-        $this->httpClient->request(
-            "GET",
-            "/httpgateway",
-            [
-                'http_errors' => false,
-                'Accept' => 'application/hal+json',
-                'on_stats' => function (TransferStats $stats) use (&$url) {
-                    /** @var Uri $url */
-                    $url = $stats->getEffectiveUri();
-                }
-            ]
-        );
-
-        $this->registrationUrl = $url->__toString() . "conf/apps";
+        try {
+            $this->httpClient->request(
+                "GET",
+                "/httpgateway",
+                [
+                    'http_errors' => false,
+                    'Accept' => 'application/hal+json',
+                    'on_stats' => function (TransferStats $stats) use (&$url) {
+                        /** @var Uri $url */
+                        $url = $stats->getEffectiveUri();
+                    }
+                ]
+            );
+    
+            $this->registrationUrl = $url->__toString() . "conf/apps";
+            $this->realRegistrationUrlGiven = true;
+        } catch(GuzzleException $exception) {
+            throw new GatewayException("Error getting real registration url",0,$exception);
+        }
+       
     }
-
+    
     /** Add an new d.ecs http gateway app registration. One app name can have multiple instances
      * @param App $app
      * @return String d.ecs http gateway instance url
      * @throws GuzzleException
+     * @throws GatewayException
      */
     public function addRegistration(App $app)
     {
-        // echo "add registration to  $this->registrationUrl<br>";
-        $response = $this->httpClient->request(
-            "POST",
-            $this->registrationUrl,
-            [
-                'http_errors' => false,
-                'Accept' => 'application/hal+json',
-                'auth' => [$this->user, $this->password, "digest"],
-                'json' => $app,
-            ]
-        );
-
-        if ($response->getStatusCode() == 201 && $response->hasHeader("Location")) {
-            //print_r($response->getHeaders());
-            $location = $response->getHeader("Location");
-            //print_r($location);
-            if (count($location) == 1) {
-                return $response->getHeader("Location")[0];
+        if (!$this->realRegistrationUrlGiven) {
+            $this->getRealRegistrationUrl();
+        }
+        
+        if (!$this->checkConnection()) {
+            throw new GatewayException("Could not establish connection");
+        }
+        
+        try {
+            $response = $this->httpClient->request(
+                "POST",
+                $this->registrationUrl,
+                [
+                    'http_errors' => false,
+                    'Accept' => 'application/hal+json',
+                    'auth' => [$this->user, $this->password, "digest"],
+                    'json' => $app,
+                ]
+            );
+    
+            if ($response->getStatusCode() == 201 && $response->hasHeader("Location")) {
+                //print_r($response->getHeaders());
+                $location = $response->getHeader("Location");
+                //print_r($location);
+                if (count($location) == 1) {
+                    return $response->getHeader("Location")[0];
+                } else {
+                   throw new GatewayException("Got no app url / location header back from d.ecs http gateway");
+                }
             } else {
-                return false;
+                throw new GatewayException("Got no good response from d.ecs http gateway");
             }
-        } else {
-            return false;
+        } catch(GuzzleException $exception) {
+            throw new GatewayException("Error with Guzzle " . $exception->getMessage(),0,$exception);
         }
     }
 
