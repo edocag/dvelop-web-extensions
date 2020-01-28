@@ -14,7 +14,7 @@
     "netresearch/jsonmapper": "^1.4",
     "ext-json": "*"
   },
-  "license": "GPL-3.0-or-later",
+  "license": "proprietary",
   "autoload": {
     "psr-4": {
       "": "src/"
