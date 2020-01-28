@@ -2,13 +2,13 @@
 
 use GuzzleHttp\Exception\GuzzleException;
 use HttpGateway\App;
-use HttpGateway\Registration;
+use HttpGateway\GatewayClient;
 
 require_once "../vendor/autoload.php";
 
 $app = new App("{appname}", "{destination}");
 
-$httpGw = new \HttpGateway\GatewayClient("{baseurl}", "{password}");
+$httpGw = new GatewayClient("{baseurl}", "{password}");
 
 try {
     $httpGw->getRealRegistrationUrl();
