@@ -44,12 +44,13 @@ class SimpleIdpClient
 
         return $uri->__toString();
     }
-
+    
     /**
      * Check if user session is valid
+     * @param bool $return true=return user object - false=return true
      * @return bool
      */
-    public function validateToken()
+    public function validateToken($return = false)
     {
         // If no token was sent then session cannot be valid
         if (!$this->tokenExists()) return false;
@@ -77,7 +78,15 @@ class SimpleIdpClient
     
             $this->logger->debug("Validation status", [$validationResponse->getStatusCode()]);
 
-            return ($validationResponse->getStatusCode() == 200);
+            if ($validationResponse->getStatusCode() == 200) {
+                if ($return) {
+                    return json_decode($validationResponse->getBody()->getContents(),true);
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
         } catch (GuzzleException $e) {
             return false;
         }
