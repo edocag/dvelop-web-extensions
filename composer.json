@@ -12,7 +12,11 @@
     "php": ">=7.0",
     "guzzlehttp/guzzle": "^6.3",
     "netresearch/jsonmapper": "^1.4",
-    "ext-json": "*"
+    "ext-json": "*",
+    "psr/log": "*"
+  },
+  "require-dev": {
+    "monolog/monolog": "^2.0"
   },
   "license": "proprietary",
   "autoload": {

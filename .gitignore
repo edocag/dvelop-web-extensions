@@ -1,3 +1,4 @@
 /vendor/
 /.idea/
 composer.json
+examples/my_app.log

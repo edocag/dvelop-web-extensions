@@ -7,6 +7,7 @@ namespace IdentityProvider;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Uri;
+use Psr\Log\LoggerInterface;
 
 class SimpleIdpClient
 {
@@ -14,15 +15,19 @@ class SimpleIdpClient
     private $httpClient;
     /** @var string */
     private $baseUrl;
-
+    /** @var LoggerInterface  */
+    private $logger;
+    
     /**
      * SimpleIdpClient constructor.
      * @param string $baseUrl BaseUrl of the d.ecs http gateway instance
+     * @param LoggerInterface $logger
      */
-    public function __construct(string $baseUrl)
+    public function __construct(string $baseUrl, LoggerInterface $logger)
     {
         $this->baseUrl = $baseUrl;
         $this->httpClient = new Client();
+        $this->logger = $logger;
     }
 
     /** Get a login url for idp
@@ -53,18 +58,24 @@ class SimpleIdpClient
         $uri = new Uri($this->baseUrl);
         $uri = $uri->withPath("identityprovider");
         $uri = $uri->withPath($uri->getPath() . "/validate");
-
+    
+        $this->logger->debug("Validate on Url $uri");
+        
         try {
             $validationResponse = $this->httpClient->request(
                 "GET",
                 $uri,
                 [
                     "headers" => [
-                        "Authorization" => "Bearer " . urldecode($this->getToken()),
-                        "Accept" => "application/json"
+                        "Authorization" => "Bearer " . $this->getToken(),
+                        "Accept" => "application/json",
+                        "verify" => false,
+                        "http_errors"  => false
                     ]
                 ]
             );
+    
+            $this->logger->debug("Validation status", [$validationResponse->getStatusCode()]);
 
             return ($validationResponse->getStatusCode() == 200);
         } catch (GuzzleException $e) {
@@ -78,6 +89,7 @@ class SimpleIdpClient
      */
     public function tokenExists()
     {
+        $this->logger->debug("Token exists?", [isset($_COOKIE["AuthSessionId"])]);
         return isset($_COOKIE["AuthSessionId"]);
     }
 

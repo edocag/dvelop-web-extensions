@@ -3,11 +3,12 @@
 use IdentityProvider\SimpleIdpClient;
 
 require_once "../vendor/autoload.php";
+require_once "loggerImplementation.php";
 
-$idpClient = new SimpleIdpClient("https://d3one.edoc.de");
+$idpClient = new SimpleIdpClient("https://d3one.edoc.de", $logger);
 
 echo $idpClient->loginUrl("/home");
 
-var_dump($idpClient->tokenExists());
+$logger->debug("Token exists",[$idpClient->tokenExists()]);
 
-var_dump($idpClient->validateToken());
+$logger->debug("Token validation",[$idpClient->validateToken()]);
