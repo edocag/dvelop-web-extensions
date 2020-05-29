@@ -25,8 +25,8 @@ class Feature
     public $url;
     /** @var $color String */
     public $color;
-    /** @var $icon String */
-    public $icon;
+    /** @var $iconURI String */
+    public $iconURI;
 
     /**
      * Feature constructor.
@@ -54,6 +54,6 @@ class Feature
         $this->summary = $summary;
         $this->url = $url;
         $this->color = $color;
-        $this->icon = $icon;
+        $this->iconURI = $icon;
     }
 }
