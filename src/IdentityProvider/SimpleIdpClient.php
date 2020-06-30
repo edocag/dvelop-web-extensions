@@ -74,10 +74,10 @@ class SimpleIdpClient
                 [
                     "headers" => [
                         "Authorization" => "Bearer " . $this->getToken(),
-                        "Accept" => "application/json",
-                        "verify" => $verifyCertificate,
-                        "http_errors"  => false
-                    ]
+                        "Accept" => "application/json"
+                    ],
+                    "verify" => $verifyCertificate,
+                    "http_errors"  => false
                 ]
             );
     
