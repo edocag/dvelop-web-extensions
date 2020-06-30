@@ -14,9 +14,11 @@ class SimpleIdpClient
     /** @var Client */
     private $httpClient;
     /** @var string */
-    private $baseUrl;
+    public $baseUrl;
     /** @var LoggerInterface  */
     private $logger;
+    /** @var bool|string */
+    public $verifyCertificate;
     
     /**
      * SimpleIdpClient constructor.
@@ -44,13 +46,16 @@ class SimpleIdpClient
 
         return $uri->__toString();
     }
-    
-    /**
-     * Check if user session is valid
-     * @param bool $return true=return user object - false=return true
-     * @return bool
-     */
-    public function validateToken($return = false)
+
+	/**
+	 * Check if user session is valid
+	 *
+	 * @param bool $return true=return user object - false=return true
+	 * @param bool $verifyCertificate
+	 *
+	 * @return bool
+	 */
+    public function validateToken($return = false, $verifyCertificate = false)
     {
         // If no token was sent then session cannot be valid
         if (!$this->tokenExists()) return false;
@@ -70,7 +75,7 @@ class SimpleIdpClient
                     "headers" => [
                         "Authorization" => "Bearer " . $this->getToken(),
                         "Accept" => "application/json",
-                        "verify" => false,
+                        "verify" => $verifyCertificate,
                         "http_errors"  => false
                     ]
                 ]
