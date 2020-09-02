@@ -47,15 +47,17 @@ class SimpleIdpClient
         return $uri->__toString();
     }
 
-	/**
-	 * Check if user session is valid
-	 *
-	 * @param bool $return true=return user object - false=return true
-	 * @param bool $verifyCertificate
-	 *
-	 * @return bool
-	 */
-    public function validateToken($return = false, $verifyCertificate = false)
+    /**
+     * Check if user session is valid
+     *
+     * @param bool $return true=return user object - false=return true
+     * @param bool $verifyCertificate
+     *
+     * @param int $detailLevel Set to 1 to view all user details
+     *
+     * @return bool
+     */
+    public function validateToken($return = false, $verifyCertificate = false, $detailLevel = 0)
     {
         // If no token was sent then session cannot be valid
         if (!$this->tokenExists()) return false;
@@ -64,6 +66,7 @@ class SimpleIdpClient
         $uri = new Uri($this->baseUrl);
         $uri = $uri->withPath("identityprovider");
         $uri = $uri->withPath($uri->getPath() . "/validate");
+        $uri = $uri->withQuery("detailLevel=1");
     
         $this->logger->debug("Validate on Url $uri");
         
@@ -85,7 +88,7 @@ class SimpleIdpClient
 
             if ($validationResponse->getStatusCode() == 200) {
                 if ($return) {
-                    return json_decode($validationResponse->getBody()->getContents(),true);
+                    return $this->processValidationJson($validationResponse->getBody()->getContents());
                 } else {
                     return true;
                 }
@@ -95,6 +98,17 @@ class SimpleIdpClient
         } catch (GuzzleException $e) {
             return false;
         }
+    }
+
+    /**
+     * Room for processing method
+     * @param $json
+     *
+     * @return mixed
+     */
+    protected function processValidationJson($json)
+    {
+        return json_decode($json, true);
     }
 
     /**
