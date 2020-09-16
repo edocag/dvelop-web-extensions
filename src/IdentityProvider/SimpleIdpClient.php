@@ -62,11 +62,13 @@ class SimpleIdpClient
         // If no token was sent then session cannot be valid
         if (!$this->tokenExists()) return false;
 
+        $detailLevel = in_array($detailLevel, [0,1]) ? $detailLevel : 0;
+
         // Create complete request url
         $uri = new Uri($this->baseUrl);
         $uri = $uri->withPath("identityprovider");
         $uri = $uri->withPath($uri->getPath() . "/validate");
-        $uri = $uri->withQuery("detailLevel=1");
+        $uri = $uri->withQuery("detailLevel=" . $detailLevel);
     
         $this->logger->debug("Validate on Url $uri");
         
