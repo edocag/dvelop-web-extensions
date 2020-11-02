@@ -1,12 +1,4 @@
 <?php
-/**
- * Copyright (c) 2019. edoc solutions ag
- */
-
-/** contract app
- * edoc app server custom plugin file
- * created by tibens on 21.02.2019
- */
 
 namespace Extensions\Feature;
 
@@ -23,13 +15,16 @@ class Feature
     public $summary;
     /** @var $url String */
     public $url;
-    /** @var $color String */
+    /** @var $color String Background color in HEX */
     public $color;
-    /** @var $iconURI String */
+    /** @var $iconURI String relative URL to an icon with size 32x32px in PNG or SVG */
     public $iconURI;
+    /** @var Badge */
+    public $badge;
 
     /**
      * Feature constructor.
+     *
      * @param String $title
      * @param String $subtitle
      * @param String $description
@@ -37,6 +32,7 @@ class Feature
      * @param String $url
      * @param String $color
      * @param String $icon
+     * @param $count mixed Badge counter
      */
     public function __construct(
         String $title,
@@ -45,7 +41,8 @@ class Feature
         String $summary,
         String $url,
         String $color,
-        String $icon
+        String $icon,
+        $count
     )
     {
         $this->title = $title;
@@ -55,5 +52,9 @@ class Feature
         $this->url = $url;
         $this->color = $color;
         $this->iconURI = $icon;
+
+        if (is_int($count)) {
+            $this->badge = new Badge($count);
+        }
     }
 }

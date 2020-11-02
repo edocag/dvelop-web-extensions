@@ -1,12 +1,4 @@
 <?php
-/**
- * Copyright (c) 2019. edoc solutions ag
- */
-
-/** contract app
- * edoc app server custom plugin file
- * created by tibens on 21.02.2019
- */
 
 namespace Extensions;
 
@@ -17,7 +9,6 @@ class Link
     public $href;
     /** @var $templated boolean */
     public $templated;
-
 
     /**
      * Link constructor.

@@ -3,14 +3,15 @@
 namespace Extensions\Feature;
 
 
+use Extensions\HalJson;
 use Extensions\Link;
 
 class Features
 {
+    use HalJson;
+
     /** @var Feature[] $features */
     public $features;
-    /** @var array $_links */
-    public $_links;
 
     /**
      * Features constructor.

@@ -3,14 +3,15 @@
 namespace Extensions\DmsObject;
 
 
+use Extensions\HalJson;
 use Extensions\Link;
 
 class DmsObjectExtensions
 {
+    use HalJson;
+
     /** @var $extensions DmsObjectExtension[] */
     public $extensions;
-    /** @var array $_links */
-    public $_links;
 
     /**
      * DmsObjectExtensions constructor.

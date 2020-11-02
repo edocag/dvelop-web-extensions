@@ -1,8 +1,4 @@
 <?php
-/** dvelop-web-extensions
- * edoc app server custom plugin file
- * created by tibens on 30.04.2019
- */
 
 namespace Extensions\Source;
 
